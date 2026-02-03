@@ -1,13 +1,159 @@
-<!doctype html>
-<html lang="en">
+<!DOCTYPE html>
+<html lang="ru">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Для Кундуз</title>
+    <style>
+        * { box-sizing: border-box; }
+        body {
+            margin: 0;
+            min-height: 100vh;
+            display: grid;
+            place-items: center;
+            background: #0f1220;
+            font-family: system-ui, -apple-system, Arial, sans-serif;
+            color: #fff;
+            overflow: hidden;
+        }
+
+        .wrap {
+            background: #161a2b;
+            border-radius: 20px;
+            padding: 28px 24px 24px;
+            width: min(92vw, 360px);
+            box-shadow: 0 20px 60px rgba(0,0,0,.35);
+            text-align: center;
+            animation: pop .4s ease;
+            position: relative;
+            z-index: 2;
+        }
+
+        h1 {
+            font-size: 22px;
+            margin: 0 0 8px;
+            letter-spacing: .2px;
+        }
+
+        .sub {
+            opacity: .8;
+            margin-bottom: 16px;
+            font-size: 14px;
+        }
+
+        .btns {
+            position: relative;
+            height: 110px;
+            margin-top: 8px;
+        }
+
+        button {
+            border: 0;
+            border-radius: 999px;
+            padding: 12px 18px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: transform .12s ease, box-shadow .12s ease;
+        }
+
+        .yes {
+            background: linear-gradient(135deg, #ff4d6d, #ff7eb3);
+            color: #fff;
+            box-shadow: 0 10px 20px rgba(255,77,109,.35);
+        }
+        .yes:active { transform: scale(.96); }
+
+        .no {
+            position: absolute;
+            left: 160px;
+            top: 8px;
+            background: #23284a;
+            color: #cfd3ff;
+        }
+
+        /* hearts */
+        .heart {
+            position: fixed;
+            bottom: -20px;
+            font-size: 16px;
+            animation: floatUp 3.5s linear forwards;
+            pointer-events: none;
+            z-index: 1;
+            opacity: .9;
+        }
+        @keyframes floatUp {
+            to { transform: translateY(-110vh) scale(1.8); opacity: 0; }
+        }
+
+        @keyframes pop {
+            from { transform: scale(.9); opacity: 0; }
+            to { transform: scale(1); opacity: 1; }
+        }
+
+        .celebrate { animation: celebrate .6s ease; }
+        @keyframes celebrate {
+            50% { transform: scale(1.04); }
+        }
+
+        .footer {
+            margin-top: 10px;
+            font-size: 12px;
+            opacity: .6;
+        }
+    </style>
 </head>
 <body>
+
+<div class="wrap" id="card">
+    <h1>Кундуз, будешь моей валентинкой? 💖</h1>
+    <div class="sub">Ответь честно, пожалуйста</div>
+
+    <div class="btns">
+        <button class="yes" onclick="yesClick()">Да</button>
+        <button class="no" id="noBtn" onmouseover="moveNo()">Нет</button>
+    </div>
+
+    <div class="footer">для Кундуз</div>
+</div>
+
+<script>
+    const noBtn = document.getElementById('noBtn');
+    const card = document.getElementById('card');
+
+    function moveNo() {
+        const areaW = 260; // зона движения кнопки
+        const areaH = 70;
+        noBtn.style.left = Math.random() * areaW + 'px';
+        noBtn.style.top  = Math.random() * areaH + 'px';
+    }
+
+    function yesClick() {
+        card.classList.add('celebrate');
+        setTimeout(() => card.classList.remove('celebrate'), 600);
+
+        card.innerHTML = `
+        <h1>Ура! ❤️</h1>
+        <div class="sub">Я рад, что ты сказала «да»</div>
+        <p style="margin:10px 0 0; opacity:.9">С 14 февраля 💘</p>
+        <p style="margin:6px 0 0;"><b>Твой маленький гешталь 😌</b></p>
+      `;
+
+        for (let i = 0; i < 20; i++) burstHearts();
+    }
+
+    function burstHearts() {
+        const h = document.createElement('div');
+        h.className = 'heart';
+        h.textContent = '💖';
+        h.style.left = Math.random() * 100 + 'vw';
+        h.style.fontSize = (12 + Math.random() * 16) + 'px';
+        document.body.appendChild(h);
+        setTimeout(() => h.remove(), 3500);
+    }
+
+    // лёгкий фон из сердечек
+    setInterval(burstHearts, 900);
+</script>
 
 </body>
 </html>
