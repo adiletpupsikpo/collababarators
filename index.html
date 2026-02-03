@@ -1,159 +1,155 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <title>Для Кундуз</title>
-    <style>
-        * { box-sizing: border-box; }
-        body {
-            margin: 0;
-            min-height: 100vh;
-            display: grid;
-            place-items: center;
-            background: pink;
-            font-family: system-ui, -apple-system, Arial, sans-serif;
-            color: black;
-            overflow: hidden;
-        }
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Для Кундуз 💖</title>
+  <style>
+    body {
+      margin: 0;
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background:pink;
+      font-family: Arial, sans-serif;
+      overflow: hidden;
+    }
 
-        .wrap {
-            background: white;
-            border-radius: 20px;
-            padding: 28px 24px 24px;
-            width: min(92vw, 360px);
-            box-shadow: 0 20px 60px rgba(0,0,0,.3;
-            text-align: center;
-            animation: pop .4s ease;
-            position: relative;
-            z-index: 2;
-        }
+    .card {
+      background: white;
+      padding: 24px 20px;
+      border-radius: 20px;
+      text-align: center;
+      width: 320px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+      animation: pop 0.5s ease;
+      position: relative;
+      z-index: 2;
+    }
 
-        h1 {
-            font-size: 22px;
-            margin: 0 0 8px;
-            letter-spacing: .2px;
-        }
+    h1 {
+      color: #ff4d6d;
+      font-size: 20px;
+      margin: 10px 0 12px;
+    }
 
-        .sub {
-            opacity: .8;
-            margin-bottom: 16px;
-            font-size: 14px;
-        }
+    p {
+      color: #333;
+      margin: 6px 0;
+    }
 
-        .btns {
-            position: relative;
-            height: 110px;
-            margin-top: 8px;
-        }
+    .buttons {
+      position: relative;
+      height: 120px;
+      margin-top: 12px;
+    }
 
-        button {
-            border: 0;
-            border-radius: 999px;
-            padding: 12px 18px;
-            font-size: 16px;
-            cursor: pointer;
-            transition: transform .12s ease, box-shadow .12s ease;
-        }
+    button {
+      padding: 12px 20px;
+      border: none;
+      border-radius: 999px;
+      font-size: 16px;
+      cursor: pointer;
+      transition: transform 0.15s ease;
+    }
 
-        .yes {
-            background: linear-gradient(135deg, #ff4d6d, #ff7eb3);
-            color: #fff;
-            box-shadow: 0 10px 20px rgba(255,77,109,.35);
-        }
-        .yes:active { transform: scale(.96); }
+    .yes {
+      background: #ff4d6d;
+      color: white;
+    }
 
-        .no {
-            position: absolute;
-            left: 160px;
-            top: 8px;
-            background: #23284a;
-            color: #cfd3ff;
-        }
+    .yes:active {
+      transform: scale(0.95);
+    }
 
-        /* hearts */
-        .heart {
-            position: fixed;
-            bottom: -20px;
-            font-size: 16px;
-            animation: floatUp 3.5s linear forwards;
-            pointer-events: none;
-            z-index: 1;
-            opacity: .9;
-        }
-        @keyframes floatUp {
-            to { transform: translateY(-110vh) scale(1.8); opacity: 0; }
-        }
+    .no {
+      position: absolute;
+      background: #f1f1f1;
+    }
 
-        @keyframes pop {
-            from { transform: scale(.9); opacity: 0; }
-            to { transform: scale(1); opacity: 1; }
-        }
+    /* Сердечки */
+    .heart {
+      position: fixed;
+      bottom: -20px;
+      font-size: 20px;
+      animation: floatUp 4s linear forwards;
+      pointer-events: none;
+      z-index: 1;
+    }
 
-        .celebrate { animation: celebrate .6s ease; }
-        @keyframes celebrate {
-            50% { transform: scale(1.04); }
-        }
+    @keyframes floatUp {
+      from { transform: translateY(0) scale(1); opacity: 1; }
+      to { transform: translateY(-110vh) scale(1.8); opacity: 0; }
+    }
 
-        .footer {
-            margin-top: 10px;
-            font-size: 12px;
-            opacity: .6;
-        }
-    </style>
+    @keyframes pop {
+      from { transform: scale(0.8); opacity: 0; }
+      to { transform: scale(1); opacity: 1; }
+    }
+
+    .celebrate {
+      animation: celebrate 0.6s ease;
+    }
+
+    @keyframes celebrate {
+      0% { transform: scale(1); }
+      50% { transform: scale(1.05); }
+      100% { transform: scale(1); }
+    }
+  </style>
 </head>
 <body>
 
-<div class="wrap" id="card">
-    <h1>Кундуз, будешь моей валентинкой? 💖</h1>
-    <div class="sub">Ответь честно, пожалуйста</div>
+  <div class="card" id="card">
+    <h1>Кундуз, ты будешь моей валентинкой? 💖</h1>
+    <p>У меня к тебе один важный вопрос…</p>
 
-    <div class="btns">
-        <button class="yes" onclick="yesClick()">Да</button>
-        <button class="no" id="noBtn" onmouseover="moveNo()">Нет</button>
+    <div class="buttons">
+      <button class="yes" onclick="yesClick()">Да 😍</button>
+      <button class="no" id="noBtn" onmouseover="moveNo()">Нет 🙈</button>
     </div>
+  </div>
 
-    <div class="footer">для Кундуз</div>
-</div>
-
-<script>
-    const noBtn = document.getElementById('noBtn');
-    const card = document.getElementById('card');
+  <script>
+    const noBtn = document.getElementById("noBtn");
+    const card = document.getElementById("card");
 
     function moveNo() {
-        const areaW = 260; // зона движения кнопки
-        const areaH = 70;
-        noBtn.style.left = Math.random() * areaW + 'px';
-        noBtn.style.top  = Math.random() * areaH + 'px';
+      const x = Math.random() * 200;
+      const y = Math.random() * 80;
+      noBtn.style.left = x + "px";
+      noBtn.style.top = y + "px";
     }
 
     function yesClick() {
-        card.classList.add('celebrate');
-        setTimeout(() => card.classList.remove('celebrate'), 600);
+      card.classList.add("celebrate");
+      setTimeout(() => card.classList.remove("celebrate"), 600);
 
-        card.innerHTML = `
+      card.innerHTML = `
         <h1>🐵❤️</h1>
-        <div class="sub">Я рад, что ты сказала «да»</div>
-        <p style="margin:10px 0 0; opacity:.9">С 14 февраля 💘</p>
-        <p style="margin:6px 0 0;"><b>Твой маленький гешталь 😌</b></p>
+        <p>С 14 февраля 💘</p>
+        <p><b>Твой маленький гешталь 😌</b></p>
       `;
 
-        for (let i = 0; i < 20; i++) burstHearts();
+      for (let i = 0; i < 25; i++) {
+        createHeart();
+      }
     }
 
-    function burstHearts() {
-        const h = document.createElement('div');
-        h.className = 'heart';
-        h.textContent = '💖';
-        h.style.left = Math.random() * 100 + 'vw';
-        h.style.fontSize = (12 + Math.random() * 16) + 'px';
-        document.body.appendChild(h);
-        setTimeout(() => h.remove(), 3500);
+    function createHeart() {
+      const heart = document.createElement("div");
+      heart.className = "heart";
+      heart.innerText = "💖";
+      heart.style.left = Math.random() * 100 + "vw";
+      heart.style.fontSize = 14 + Math.random() * 20 + "px";
+      document.body.appendChild(heart);
+
+      setTimeout(() => heart.remove(), 4000);
     }
 
-    // лёгкий фон из сердечек
-    setInterval(burstHearts, 900);
-</script>
+    setInterval(createHeart, 700);
+  </script>
 
 </body>
 </html>
