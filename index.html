@@ -54,19 +54,9 @@
       transition: transform 0.15s ease;
     }
 
-    .yes {
-      background: #ff4d6d;
-      color: white;
-    }
-
-    .yes:active {
-      transform: scale(0.95);
-    }
-
-    .no {
-      position: absolute;
-      background: #f1f1f1;
-    }
+    .yes { background: #ff4d6d; color: white; }
+    .yes:active { transform: scale(0.95); }
+    .no { position: absolute; background: #f1f1f1; }
 
     .heart {
       position: fixed;
@@ -87,10 +77,7 @@
       to { transform: scale(1); opacity: 1; }
     }
 
-    .celebrate {
-      animation: celebrate 0.6s ease;
-    }
-
+    .celebrate { animation: celebrate 0.6s ease; }
     @keyframes celebrate {
       0% { transform: scale(1); }
       50% { transform: scale(1.05); }
@@ -129,8 +116,8 @@
       card.classList.add("celebrate");
       setTimeout(() => card.classList.remove("celebrate"), 600);
 
-      // ▶️ Музыка с начала
-      song.currentTime = 0;
+      // ▶️ Включаем музыку с 1:25
+      song.currentTime = 85;
       song.play();
 
       card.innerHTML = `
