@@ -126,3 +126,36 @@
     }
 
     function yesClick() {
+      card.classList.add("celebrate");
+      setTimeout(() => card.classList.remove("celebrate"), 600);
+
+      // ▶️ Музыка с начала
+      song.currentTime = 0;
+      song.play();
+
+      card.innerHTML = `
+        <h1>🐵❤️</h1>
+        <p>С 14 февраля 💘</p>
+        <p><b>Твой маленький гешталь 😌</b></p>
+      `;
+
+      for (let i = 0; i < 25; i++) {
+        createHeart();
+      }
+    }
+
+    function createHeart() {
+      const heart = document.createElement("div");
+      heart.className = "heart";
+      heart.innerText = "💖";
+      heart.style.left = Math.random() * 100 + "vw";
+      heart.style.fontSize = 14 + Math.random() * 20 + "px";
+      document.body.appendChild(heart);
+      setTimeout(() => heart.remove(), 4000);
+    }
+
+    setInterval(createHeart, 700);
+  </script>
+
+</body>
+</html>
