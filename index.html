@@ -51,11 +51,9 @@
       border-radius: 999px;
       font-size: 16px;
       cursor: pointer;
-      transition: transform 0.15s ease;
     }
 
     .yes { background: #ff4d6d; color: white; }
-    .yes:active { transform: scale(0.95); }
     .no { position: absolute; background: #f1f1f1; }
 
     .heart {
@@ -76,13 +74,6 @@
       from { transform: scale(0.8); opacity: 0; }
       to { transform: scale(1); opacity: 1; }
     }
-
-    .celebrate { animation: celebrate 0.6s ease; }
-    @keyframes celebrate {
-      0% { transform: scale(1); }
-      50% { transform: scale(1.05); }
-      100% { transform: scale(1); }
-    }
   </style>
 </head>
 <body>
@@ -94,43 +85,35 @@
     <div class="buttons">
       <button class="yes" onclick="yesClick()">Да 😍</button>
       <button class="no" id="noBtn" onmouseover="moveNo()">Нет 🙈</button>
-      <button onclick="playSong()">ДА</button>
     </div>
   </div>
 
   <!-- 🔊 Музыка -->
-<audio id="song" preload="auto">
-  <source src="Idris Leos Млечный путь.mp3" type="audio/mpeg">
-</audio>
-
+  <audio id="song" preload="auto">
+    <source src="" type="audio/mpeg">
+  </audio>
 
   <script>
     const noBtn = document.getElementById("noBtn");
     const card = document.getElementById("card");
-    const song = document.getElementById("loveSong");
+    const song = document.getElementById("song");
 
     function moveNo() {
       const x = Math.random() * 200;
       const y = Math.random() * 80;
       noBtn.style.left = x + "px";
       noBtn.style.top = y + "px";
-      function playSong() {
-  const audio = document.getElementById('song');
-  audio.currentTime = 85; // 1:25
-  audio.play().catch(err => console.log(err));
     }
 
     function yesClick() {
-      card.classList.add("celebrate");
-      setTimeout(() => card.classList.remove("celebrate"), 600);
-
       // ▶️ Включаем музыку с 1:25
-
+      song.currentTime = 85;
+      song.play().catch(err => console.log(err));
 
       card.innerHTML = `
-        <h1>🐵❤️</h1>
-        <p>С 14 февраля 💘</p>
-        <p><b>Твой маленький гешталь 😌</b></p>
+        <h1>🐻💖</h1>
+        <p>С 14 февраля, Кундуз 💘</p>
+        <p><b>Будь моей валентинкой 😌</b></p>
       `;
 
       for (let i = 0; i < 25; i++) {
@@ -147,9 +130,8 @@
       document.body.appendChild(heart);
       setTimeout(() => heart.remove(), 4000);
     }
-
-    setInterval(createHeart, 700);
   </script>
 
 </body>
 </html>
+
