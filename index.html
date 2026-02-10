@@ -1,14 +1,15 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Для Кундуз 🤍</title>
   <style>
     body {
       margin: 0;
+      height: 100vh;
       font-family: Arial, sans-serif;
-      background: #fff;
+      background: #ffd6e7;
       text-align: center;
       overflow: hidden;
     }
@@ -16,7 +17,7 @@
     #intro {
       position: fixed;
       inset: 0;
-      background: #fff;
+      background: #ffd6e7;
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -25,36 +26,39 @@
     }
 
     .bear {
-      width: 180px;
+      width: 160px;
       image-rendering: pixelated;
-      animation: pop 1.2s ease-out;
+      animation: pop 1s ease-out;
     }
 
     .intro-text {
       margin-top: 10px;
       font-size: 18px;
+      color: #ff4d6d;
     }
 
-    @keyframes pop {
-      0% { transform: scale(0); opacity: 0; }
-      60% { transform: scale(1.1); opacity: 1; }
-      100% { transform: scale(1); }
+    .card {
+      background: white;
+      padding: 24px 20px;
+      border-radius: 20px;
+      width: 320px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+      animation: pop 0.5s ease;
+      position: relative;
+      z-index: 2;
     }
 
-    .hidden { display: none; }
+    h1, p { color: #ff4d6d; }
 
-    #main {
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      gap: 20px;
+    .buttons {
+      position: relative;
+      height: 120px;
+      margin-top: 12px;
     }
 
     button {
-      padding: 14px 26px;
-      font-size: 18px;
+      padding: 12px 20px;
+      font-size: 16px;
       border: none;
       border-radius: 12px;
       background: #ff5fa2;
@@ -62,38 +66,31 @@
       cursor: pointer;
     }
 
+    .yes { background: #ff4d6d; }
+    .no { position: absolute; background: #f1f1f1; color: #333; }
+
     #final {
       position: fixed;
       inset: 0;
-      background: #fff;
+      background: #ffd6e7;
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      gap: 14px;
+      gap: 12px;
       opacity: 0;
       pointer-events: none;
       transition: opacity 1s ease;
       z-index: 5;
     }
 
-    #final.show {
-      opacity: 1;
-      pointer-events: auto;
-    }
+    #final.show { opacity: 1; pointer-events: auto; }
 
-    .final-text {
-      font-size: 22px;
-      animation: fadeUp 1.2s ease forwards;
-    }
-
-    @keyframes fadeUp {
-      from { transform: translateY(20px); opacity: 0; }
-      to   { transform: translateY(0); opacity: 1; }
-    }
+    .final-text { font-size: 22px; color: #ff4d6d; }
 
     .heart {
       position: fixed;
+      bottom: -20px;
       font-size: 20px;
       animation: floatUp 2.5s linear forwards;
       pointer-events: none;
@@ -101,46 +98,54 @@
 
     @keyframes floatUp {
       from { transform: translateY(0); opacity: 1; }
-      to   { transform: translateY(-120px); opacity: 0; }
+      to { transform: translateY(-110vh); opacity: 0; }
+    }
+
+    @keyframes pop {
+      from { transform: scale(0.7); opacity: 0; }
+      to { transform: scale(1); opacity: 1; }
     }
   </style>
 </head>
 <body>
 
-  <!-- Экран с мишкой -->
   <div id="intro">
     <img src="bear_white.gif" alt="pixel bear" class="bear">
     <div class="intro-text">Для Кундуз 🤍</div>
   </div>
 
-  <!-- Вопрос -->
-  <div id="main" class="hidden">
-    <h2>КУКА, будешь моей валентинкой? 💗</h2>
-    <button id="yesBtn">Да</button>
+  <div class="card" id="card">
+    <h1>Кундуз, ты будешь моей валентинкой? 💖</h1>
+    <p>У меня к тебе один важный вопрос…</p>
+    <div class="buttons">
+      <button class="yes" id="yesBtn">Да 😍</button>
+      <button class="no" id="noBtn">Нет 🙈</button>
+    </div>
   </div>
 
-  <!-- Финал -->
   <div id="final">
     <div class="final-text">Кундуз 🤍</div>
     <div class="final-text">С 14 февраля!</div>
   </div>
 
-  <!-- Музыка -->
   <audio id="loveSong" src="mlechny_put.mp3"></audio>
 
   <script>
-    // 1) Мишка показывается 3 секунды
+    const noBtn = document.getElementById("noBtn");
+    const yesBtn = document.getElementById("yesBtn");
+    const song = document.getElementById("loveSong");
+    const finalScreen = document.getElementById("final");
+
+    noBtn.onmouseover = () => {
+      noBtn.style.left = Math.random() * 200 + "px";
+      noBtn.style.top = Math.random() * 80 + "px";
+    };
+
     setTimeout(() => {
       document.getElementById('intro').style.display = 'none';
-      document.getElementById('main').classList.remove('hidden');
     }, 3000);
 
-    // 2) После нажатия "Да" — музыка + финал + сердечки
-    const btn = document.getElementById('yesBtn');
-    const song = document.getElementById('loveSong');
-    const finalScreen = document.getElementById('final');
-
-    btn.onclick = () => {
+    yesBtn.onclick = () => {
       song.currentTime = 85; // 1:25
       song.play();
       finalScreen.classList.add('show');
@@ -151,11 +156,11 @@
     };
 
     function createHeart() {
-      const heart = document.createElement('div');
-      heart.className = 'heart';
-      heart.textContent = '💗';
-      heart.style.left = Math.random() * 100 + 'vw';
-      heart.style.bottom = '20px';
+      const heart = document.createElement("div");
+      heart.className = "heart";
+      heart.textContent = "💖";
+      heart.style.left = Math.random() * 100 + "vw";
+      heart.style.fontSize = 14 + Math.random() * 20 + "px";
       document.body.appendChild(heart);
       setTimeout(() => heart.remove(), 2500);
     }
