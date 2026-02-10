@@ -94,11 +94,14 @@
     <div class="buttons">
       <button class="yes" onclick="yesClick()">Да 😍</button>
       <button class="no" id="noBtn" onmouseover="moveNo()">Нет 🙈</button>
+      <button onclick="playSong()">ДА</button>
     </div>
   </div>
 
   <!-- 🔊 Музыка -->
-<audio id="loveSong" src="Idris Leos Млечный путь.mp3" preload="auto"></audio>
+<audio id="song" preload="auto">
+  <source src="Idris Leos Млечный путь.mp3" type="audio/mpeg">
+</audio>
 
 
   <script>
@@ -111,6 +114,10 @@
       const y = Math.random() * 80;
       noBtn.style.left = x + "px";
       noBtn.style.top = y + "px";
+      function playSong() {
+  const audio = document.getElementById('song');
+  audio.currentTime = 85; // 1:25
+  audio.play().catch(err => console.log(err));
     }
 
     function yesClick() {
