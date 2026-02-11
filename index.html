@@ -8,12 +8,63 @@
     body {
       margin: 0;
       height: 100vh;
+      font-family: Arial, sans-serif;
+      overflow: hidden;
+      background: linear-gradient(120deg, #ff758c, #ff7eb3);
+    }
+
+    /* Экран загрузки */
+    .loader-screen {
+      position: fixed;
+      inset: 0;
+      background: linear-gradient(120deg, #ff758c, #ff7eb3);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      z-index: 9999;
+      color: white;
+    }
+
+    .loader-media {
+      width: 180px;
+      height: 180px;
+      border-radius: 16px;
+      overflow: hidden;
+      margin-bottom: 20px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+    }
+
+    .loader-media img,
+    .loader-media video {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .progress-bar {
+      width: 220px;
+      height: 10px;
+      background: rgba(255,255,255,0.3);
+      border-radius: 999px;
+      overflow: hidden;
+      margin-top: 10px;
+    }
+
+    .progress {
+      width: 0%;
+      height: 100%;
+      background: white;
+      border-radius: 999px;
+      transition: width 0.2s ease;
+    }
+
+    /* Основная карточка */
+    .app {
+      height: 100vh;
       display: flex;
       align-items: center;
       justify-content: center;
-      background: linear-gradient(120deg, #ff758c, #ff7eb3);
-      font-family: Arial, sans-serif;
-      overflow: hidden;
     }
 
     .card {
@@ -26,18 +77,11 @@
       animation: pop 0.5s ease;
       position: relative;
       z-index: 2;
+      display: none; /* скрыта, пока загрузка */
     }
 
-    h1 {
-      color: #ff4d6d;
-      font-size: 20px;
-      margin: 10px 0 12px;
-    }
-
-    p {
-      color: #333;
-      margin: 6px 0;
-    }
+    h1 { color: #ff4d6d; font-size: 20px; margin: 10px 0 12px; }
+    p { color: #333; margin: 6px 0; }
 
     .buttons {
       position: relative;
@@ -78,25 +122,56 @@
 </head>
 <body>
 
-  <div class="card" id="card">
-    <h1>Кундуз, ты будешь моей валентинкой? 💖</h1>
-    <p>У меня к тебе один важный вопрос…</p>
-
-    <div class="buttons">
-      <button class="yes" onclick="yesClick()">Да 😍</button>
-      <button class="no" id="noBtn" onmouseover="moveNo()">Нет 🙈</button>
+  <!-- Экран загрузки -->
+  <div class="loader-screen" id="loader">
+    <div class="loader-media">
+      <!-- Вариант с гифкой -->
+      <img src="loader.gif" alt="loading">
+      <!-- Или вариант с видео (раскомментируй, если видео) -->
+      <!-- <video src="loader.mp4" autoplay loop muted></video> -->
+    </div>
+    <div>Загружаем любовь… 💖</div>
+    <div class="progress-bar">
+      <div class="progress" id="progress"></div>
     </div>
   </div>
 
-  <!-- 🔊 Музыка -->
+  <!-- Основное приложение -->
+  <div class="app">
+    <div class="card" id="card">
+      <h1>Кундуз, ты будешь моей валентинкой? 💖</h1>
+      <p>У меня к тебе один важный вопрос…</p>
+
+      <div class="buttons">
+        <button class="yes" onclick="yesClick()">Да 😍</button>
+        <button class="no" id="noBtn" onmouseover="moveNo()">Нет 🙈</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Музыка -->
   <audio id="song" preload="auto">
-    <source src="Idris Leos Млечный путь.mp3" type="audio/mpeg">
+    <source src="song.mp3" type="audio/mpeg">
   </audio>
 
   <script>
-    const noBtn = document.getElementById("noBtn");
+    const loader = document.getElementById("loader");
+    const progress = document.getElementById("progress");
     const card = document.getElementById("card");
+    const noBtn = document.getElementById("noBtn");
     const song = document.getElementById("song");
+
+    // Имитация загрузки
+    let p = 0;
+    const loading = setInterval(() => {
+      p += 5;
+      progress.style.width = p + "%";
+      if (p >= 100) {
+        clearInterval(loading);
+        loader.style.display = "none";
+        card.style.display = "block";
+      }
+    }, 120);
 
     function moveNo() {
       const x = Math.random() * 200;
@@ -106,9 +181,8 @@
     }
 
     function yesClick() {
-      // ▶️ Включаем музыку с 1:25
-      song.currentTime = 85;
-      song.play().catch(err => console.log(err));
+      song.currentTime = 85; // 1:25
+      song.play().catch(()=>{});
 
       card.innerHTML = `
         <h1>🐻💖</h1>
@@ -116,22 +190,11 @@
         <p><b>Будь моей валентинкой 😌</b></p>
       `;
 
-      for (let i = 0; i < 25; i++) {
-        createHeart();
-      }
+      for (let i = 0; i < 25; i++) createHeart();
     }
 
     function createHeart() {
       const heart = document.createElement("div");
       heart.className = "heart";
       heart.innerText = "💖";
-      heart.style.left = Math.random() * 100 + "vw";
-      heart.style.fontSize = 14 + Math.random() * 20 + "px";
-      document.body.appendChild(heart);
-      setTimeout(() => heart.remove(), 4000);
-    }
-  </script>
-
-</body>
-</html>
-
+      heart.style.left = Math.random() * 100 + "
