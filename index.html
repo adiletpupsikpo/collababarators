@@ -162,16 +162,17 @@
     const song = document.getElementById("song");
 
     // Имитация загрузки
-    let p = 0;
-    const loading = setInterval(() => {
-      p += 5;
-      progress.style.width = p + "%";
-      if (p >= 100) {
-        clearInterval(loading);
-        loader.style.display = "none";
-        card.style.display = "block";
-      }
-    }, 120);
+let p = 0;
+const loading = setInterval(() => {
+  p += 20;
+  progress.style.width = p + "%";
+  if (p >= 100) {
+    clearInterval(loading);
+    loader.style.display = "none";
+    card.style.display = "block";
+  }
+}, 40);
+
 
     function moveNo() {
       const x = Math.random() * 200;
