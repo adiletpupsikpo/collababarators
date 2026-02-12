@@ -119,12 +119,92 @@
       to { transform: scale(1); opacity: 1; }
     }
   </style>
-    <div class="loader-screen" id="loader">
-    <div class="loader-media">
-
-      <img src="loader.gif" alt="loading">
-
-
 </head>
 <body>
+
+  <!-- Экран загрузки -->
+  <div class="loader-screen" id="loader">
+    <div class="loader-media">
+      <!-- Если гифка -->
+      <img src="loader.gif" alt="loading">
+      <!-- Если видео — закомментируй строку выше и раскомментируй ниже -->
+      <!-- <video src="loader.mp4" autoplay loop muted playsinline></video> -->
+    </div>
+    <div>Загружаем любовь… 💖</div>
+    <div class="progress-bar">
+      <div class="progress" id="progress"></div>
+    </div>
+  </div>
+
+  <!-- Основной экран -->
+  <div class="app">
+    <div class="card" id="card">
+      <h1>Кундуз, ты будешь моей валентинкой? 💖</h1>
+      <p>У меня к тебе один важный вопрос…</p>
+
+      <div class="buttons">
+        <button class="yes" onclick="yesClick()">Да 😍</button>
+        <button class="no" id="noBtn" onmouseover="moveNo()">Нет 🙈</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Музыка -->
+  <audio id="song" preload="auto">
+    <source src="song.mp3" type="audio/mpeg">
+  </audio>
+
+  <script>
+    const loader = document.getElementById("loader");
+    const progress = document.getElementById("progress");
+    const card = document.getElementById("card");
+    const noBtn = document.getElementById("noBtn");
+    const song = document.getElementById("song");
+
+    // Имитация загрузки
+    let p = 0;
+    const loading = setInterval(() => {
+      p += 5;
+      progress.style.width = p + "%";
+      if (p >= 100) {
+        clearInterval(loading);
+        loader.style.display = "none";
+        card.style.display = "block";
+      }
+    }, 120);
+
+    function moveNo() {
+      const x = Math.random() * 200;
+      const y = Math.random() * 80;
+      noBtn.style.left = x + "px";
+      noBtn.style.top = y + "px";
+    }
+
+    function yesClick() {
+      song.currentTime = 85; // 1:25
+      song.play().catch(()=>{});
+
+      card.innerHTML = `
+        <h1>🐻💖</h1>
+        <p>С 14 февраля, Кундуз 💘</p>
+        <p><b>Будь моей валентинкой 😌</b></p>
+      `;
+
+      for (let i = 0; i < 25; i++) createHeart();
+    }
+
+    function createHeart() {
+      const heart = document.createElement("div");
+      heart.className = "heart";
+      heart.innerText = "💖";
+      heart.style.left = Math.random() * 100 + "vw";
+      heart.style.fontSize = 14 + Math.random() * 20 + "px";
+      document.body.appendChild(heart);
+      setTimeout(() => heart.remove(), 4000);
+    }
+  </script>
+
+</body>
+</html>
+
 
