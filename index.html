@@ -4,6 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Для Кундуз 💖</title>
+
   <style>
     body {
       margin: 0;
@@ -20,6 +21,7 @@
       pointer-events: none;
     }
 
+    /* Загрузка */
     .loader {
       position: fixed;
       inset: 0;
@@ -32,15 +34,15 @@
     }
 
     .loader img {
-      width: 150px;
+      width: 140px;
       margin-bottom: 20px;
       border-radius: 12px;
     }
 
     .progress {
       width: 70%;
-      max-width: 300px;
-      height: 12px;
+      max-width: 260px;
+      height: 10px;
       background: #fff;
       border-radius: 10px;
       overflow: hidden;
@@ -78,7 +80,6 @@
     }
 
     .btns {
-      position: relative;
       width: 100%;
       max-width: 300px;
       height: 120px;
@@ -86,6 +87,7 @@
       justify-content: center;
       align-items: center;
       gap: 16px;
+      position: relative;
     }
 
     button {
@@ -97,19 +99,9 @@
       background: #ff4d88;
       color: #fff;
       box-shadow: 0 4px 10px rgba(0,0,0,0.2);
-      position: relative;
     }
 
-    button:hover {
-      transform: scale(1.05);
-    }
-
-    .final h1 {
-      font-size: 28px;
-      margin-top: 40px;
-    }
-
-    /* Летящие сердечки */
+    /* Сердечки */
     .heart {
       position: fixed;
       bottom: -20px;
@@ -158,14 +150,13 @@
     }
 
     @keyframes dropEnvelope {
-      0% { top: -100px; opacity: 0; transform: translateX(-50%) rotate(-45deg); }
-      50% { top: 30%; opacity: 1; transform: translateX(-50%) rotate(0deg); }
-      100% { top: 20%; opacity: 1; transform: translateX(-50%) rotate(0deg); }
+      to { top: 20%; }
     }
   </style>
 </head>
 <body>
 
+  <!-- Загрузка -->
   <div class="loader" id="loader">
     <img src="start.gif" alt="Загрузка">
     <div class="progress">
@@ -175,17 +166,26 @@
 
   <div class="hearts-bg"></div>
 
+  <!-- Главный экран -->
   <div class="container" id="main">
     <h1>Кундуз, будешь моей валентинкой? 💖</h1>
-    <img src="start.gif" class="gif" alt="Мишка">
+    <img src="start.gif" class="gif">
     <div class="btns">
       <button id="yesBtn">Да 💕</button>
       <button id="noBtn">Нет 🙈</button>
     </div>
   </div>
 
+  <!-- Финал -->
   <div class="final" id="final">
     <div class="envelope">💌</div>
-
+    <h1>Твой маленький гештальт 💖</h1>
   </div>
-  </html>
+
+<script>
+  const loader = document.getElementById('loader');
+  const main = document.getElementById('main');
+  const final = document.getElementById('final');
+  const bar = document.getElementById('bar');
+  const noBtn = document.getElementById('noBtn');
+  const yesBtn = document.
