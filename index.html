@@ -170,3 +170,18 @@
       conf.className = 'confetti';
       conf.style.left = Math.random() * 100 + 'vw';
       document.body.appendChild(conf);
+      setTimeout(() => conf.remove(), 3000);
+    }
+  }
+
+  // Финал
+  yesBtn.addEventListener('click', () => {
+    main.style.display = 'none';
+    final.style.display = 'flex';
+    spawnConfetti();
+    setInterval(spawnHeart, 400);
+  });
+</script>
+
+</body>
+</html>
