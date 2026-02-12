@@ -21,40 +21,6 @@
       pointer-events: none;
     }
 
-    /* Загрузка */
-    .loader {
-      position: fixed;
-      inset: 0;
-      background: #ffb6c1;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      z-index: 10;
-    }
-
-    .loader img {
-      width: 140px;
-      margin-bottom: 20px;
-      border-radius: 12px;
-    }
-
-    .progress {
-      width: 70%;
-      max-width: 260px;
-      height: 10px;
-      background: #fff;
-      border-radius: 10px;
-      overflow: hidden;
-    }
-
-    .progress-bar {
-      height: 100%;
-      width: 0%;
-      background: #ff4d88;
-      transition: width 0.1s linear;
-    }
-
     .container, .final {
       position: relative;
       z-index: 2;
@@ -70,13 +36,6 @@
     h1 {
       color: #ff2f6d;
       margin-bottom: 20px;
-    }
-
-    .gif {
-      width: 200px;
-      max-width: 80%;
-      margin-bottom: 20px;
-      border-radius: 12px;
     }
 
     .btns {
@@ -156,20 +115,11 @@
 </head>
 <body>
 
-  <!-- Загрузка -->
-  <div class="loader" id="loader">
-    <img src="start.gif" alt="Загрузка">
-    <div class="progress">
-      <div class="progress-bar" id="bar"></div>
-    </div>
-  </div>
-
   <div class="hearts-bg"></div>
 
   <!-- Главный экран -->
   <div class="container" id="main">
     <h1>Кундуз, будешь моей валентинкой? 💖</h1>
-    <img src="start.gif" class="gif">
     <div class="btns">
       <button id="yesBtn">Да 💕</button>
       <button id="noBtn">Нет 🙈</button>
@@ -183,9 +133,40 @@
   </div>
 
 <script>
-  const loader = document.getElementById('loader');
   const main = document.getElementById('main');
   const final = document.getElementById('final');
-  const bar = document.getElementById('bar');
   const noBtn = document.getElementById('noBtn');
-  const yesBtn = document.
+  const yesBtn = document.getElementById('yesBtn');
+
+  // Показываем сразу
+  main.style.display = 'flex';
+
+  // Убегающая кнопка
+  noBtn.addEventListener('mouseenter', () => {
+    const parent = document.querySelector('.btns');
+    const maxX = parent.clientWidth - noBtn.offsetWidth;
+    const maxY = parent.clientHeight - noBtn.offsetHeight;
+
+    noBtn.style.position = 'absolute';
+    noBtn.style.left = Math.random() * maxX + 'px';
+    noBtn.style.top = Math.random() * maxY + 'px';
+  });
+
+  // Сердечки
+  function spawnHeart() {
+    const heart = document.createElement('div');
+    heart.className = 'heart';
+    heart.innerText = '💖';
+    heart.style.left = Math.random() * 100 + 'vw';
+    heart.style.fontSize = 20 + Math.random() * 20 + 'px';
+    document.body.appendChild(heart);
+    setTimeout(() => heart.remove(), 4000);
+  }
+
+  // Конфетти
+  function spawnConfetti() {
+    for (let i = 0; i < 25; i++) {
+      const conf = document.createElement('div');
+      conf.className = 'confetti';
+      conf.style.left = Math.random() * 100 + 'vw';
+      document.body.appendChild(conf);
