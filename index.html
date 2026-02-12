@@ -7,205 +7,185 @@
   <style>
     body {
       margin: 0;
-      height: 100vh;
       font-family: Arial, sans-serif;
+      background: linear-gradient(135deg, #ffd1dc, #ffe6f0);
       overflow: hidden;
-      background: linear-gradient(120deg, #ff758c, #ff7eb3);
     }
 
-    /* Экран загрузки */
-    .loader-screen {
+    .hearts-bg {
       position: fixed;
       inset: 0;
-      background: linear-gradient(120deg, #ff758c, #ff7eb3);
+      background: url('https://i.imgur.com/6XKQ7Qp.png') repeat;
+      opacity: 0.2;
+      pointer-events: none;
+    }
+
+    .loader {
+      position: fixed;
+      inset: 0;
+      background: #ffb6c1;
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      z-index: 9999;
-      color: white;
+      z-index: 10;
     }
 
-    .loader-media {
-      width: 180px;
-      height: 180px;
-      border-radius: 16px;
-      overflow: hidden;
+    .loader img {
+      width: 150px;
       margin-bottom: 20px;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.3);
-    }
-
-    .loader-media img,
-    .loader-media video {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-    }
-
-    .progress-bar {
-      width: 220px;
-      height: 10px;
-      background: rgba(255,255,255,0.3);
-      border-radius: 999px;
-      overflow: hidden;
-      margin-top: 10px;
+      border-radius: 12px;
     }
 
     .progress {
-      width: 0%;
+      width: 70%;
+      max-width: 300px;
+      height: 12px;
+      background: #fff;
+      border-radius: 10px;
+      overflow: hidden;
+    }
+
+    .progress-bar {
       height: 100%;
-      background: white;
-      border-radius: 999px;
-      transition: width 0.2s ease;
+      width: 0%;
+      background: #ff4d88;
+      transition: width 0.1s linear;
     }
 
-    /* Основная карточка */
-    .app {
-      height: 100vh;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-
-    .card {
-      background: white;
-      padding: 24px 20px;
-      border-radius: 20px;
-      text-align: center;
-      width: 320px;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.2);
-      animation: pop 0.5s ease;
+    .container, .final {
       position: relative;
       z-index: 2;
-      display: none; /* скрыта, пока загрузка */
+      min-height: 100vh;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      text-align: center;
+      padding: 20px;
     }
 
-    h1 { color: #ff4d6d; font-size: 20px; margin: 10px 0 12px; }
-    p { color: #333; margin: 6px 0; }
+    h1 {
+      color: #ff2f6d;
+      margin-bottom: 20px;
+    }
 
-    .buttons {
+    .gif {
+      width: 200px;
+      max-width: 80%;
+      margin-bottom: 20px;
+      border-radius: 12px;
+    }
+
+    .btns {
       position: relative;
+      width: 100%;
+      max-width: 300px;
       height: 120px;
-      margin-top: 12px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 16px;
     }
 
     button {
-      padding: 12px 20px;
+      padding: 12px 24px;
+      font-size: 18px;
       border: none;
-      border-radius: 999px;
-      font-size: 16px;
+      border-radius: 20px;
       cursor: pointer;
+      background: #ff4d88;
+      color: #fff;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+      position: relative;
     }
 
-    .yes { background: #ff4d6d; color: white; }
-    .no { position: absolute; background: #f1f1f1; }
+    button:hover {
+      transform: scale(1.05);
+    }
 
+    .final h1 {
+      font-size: 28px;
+      margin-top: 40px;
+    }
+
+    /* Летящие сердечки */
     .heart {
       position: fixed;
       bottom: -20px;
-      font-size: 20px;
+      font-size: 24px;
       animation: floatUp 4s linear forwards;
       pointer-events: none;
-      z-index: 1;
     }
 
     @keyframes floatUp {
       from { transform: translateY(0) scale(1); opacity: 1; }
-      to { transform: translateY(-110vh) scale(1.8); opacity: 0; }
+      to { transform: translateY(-100vh) scale(1.4); opacity: 0; }
     }
 
-    @keyframes pop {
-      from { transform: scale(0.8); opacity: 0; }
-      to { transform: scale(1); opacity: 1; }
+    /* Конфетти */
+    .confetti {
+      position: fixed;
+      top: -10px;
+      width: 8px;
+      height: 12px;
+      background: #ff4d88;
+      animation: fall 3s linear forwards;
+      pointer-events: none;
+    }
+
+    @keyframes fall {
+      to { transform: translateY(110vh) rotate(360deg); opacity: 0; }
+    }
+
+    /* Конверт */
+    .envelope {
+      position: fixed;
+      top: -100px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 100px;
+      height: 70px;
+      background: #fff;
+      border: 2px solid #ff4d88;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 40px;
+      animation: dropEnvelope 1s forwards;
+      z-index: 5;
+    }
+
+    @keyframes dropEnvelope {
+      0% { top: -100px; opacity: 0; transform: translateX(-50%) rotate(-45deg); }
+      50% { top: 30%; opacity: 1; transform: translateX(-50%) rotate(0deg); }
+      100% { top: 20%; opacity: 1; transform: translateX(-50%) rotate(0deg); }
     }
   </style>
 </head>
 <body>
 
-  <!-- Экран загрузки -->
-  <div class="loader-screen" id="loader">
-    <div class="loader-media">
-      <!-- Если гифка -->
-      <img src="loader.gif" alt="loading">
-      <!-- Если видео — закомментируй строку выше и раскомментируй ниже -->
-      <!-- <video src="loader.mp4" autoplay loop muted playsinline></video> -->
-    </div>
-    <div>Загружаем любовь… 💖</div>
-    <div class="progress-bar">
-      <div class="progress" id="progress"></div>
+  <div class="loader" id="loader">
+    <img src="start.gif" alt="Загрузка">
+    <div class="progress">
+      <div class="progress-bar" id="bar"></div>
     </div>
   </div>
 
-  <!-- Основной экран -->
-  <div class="app">
-    <div class="card" id="card">
-      <h1>Кундуз, ты будешь моей валентинкой? 💖</h1>
-      <p>У меня к тебе один важный вопрос…</p>
+  <div class="hearts-bg"></div>
 
-      <div class="buttons">
-        <button class="yes" onclick="yesClick()">Да 😍</button>
-        <button class="no" id="noBtn" onmouseover="moveNo()">Нет 🙈</button>
-      </div>
+  <div class="container" id="main">
+    <h1>Кундуз, будешь моей валентинкой? 💖</h1>
+    <img src="start.gif" class="gif" alt="Мишка">
+    <div class="btns">
+      <button id="yesBtn">Да 💕</button>
+      <button id="noBtn">Нет 🙈</button>
     </div>
   </div>
 
-  <!-- Музыка -->
-  <audio id="song" preload="auto">
-    <source src="song.mp3" type="audio/mpeg">
-  </audio>
+  <div class="final" id="final">
+    <div class="envelope">💌</div>
 
-  <script>
-    const loader = document.getElementById("loader");
-    const progress = document.getElementById("progress");
-    const card = document.getElementById("card");
-    const noBtn = document.getElementById("noBtn");
-    const song = document.getElementById("song");
-
-    // Имитация загрузки
-let p = 0;
-const loading = setInterval(() => {
-  p += 20;
-  progress.style.width = p + "%";
-  if (p >= 100) {
-    clearInterval(loading);
-    loader.style.display = "none";
-    card.style.display = "block";
-  }
-}, 40);
-
-
-    function moveNo() {
-      const x = Math.random() * 200;
-      const y = Math.random() * 80;
-      noBtn.style.left = x + "px";
-      noBtn.style.top = y + "px";
-    }
-
-    function yesClick() {
-      song.currentTime = 85; // 1:25
-      song.play().catch(()=>{});
-
-      card.innerHTML = `
-        <h1>🐻💖</h1>
-        <p>С 14 февраля, Кундуз 💘</p>
-        <p><b>Будь моей валентинкой 😌</b></p>
-      `;
-
-      for (let i = 0; i < 25; i++) createHeart();
-    }
-
-    function createHeart() {
-      const heart = document.createElement("div");
-      heart.className = "heart";
-      heart.innerText = "💖";
-      heart.style.left = Math.random() * 100 + "vw";
-      heart.style.fontSize = 14 + Math.random() * 20 + "px";
-      document.body.appendChild(heart);
-      setTimeout(() => heart.remove(), 4000);
-    }
-  </script>
-
-</body>
-</html>
-
-
+  </div>
+  </html>
