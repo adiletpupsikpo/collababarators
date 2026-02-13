@@ -16,7 +16,7 @@
     .hearts-bg {
       position: fixed;
       inset: 0;
-      background: url('https://flomaster.top/o/uploads/posts/2024-02/1708586441_flomaster-top-p-populyarnie-serdechki-instagram-narisovann-1.jpg')repeat ;
+      background: url('https://flomaster.top/o/uploads/posts/2024-02/1708586441_flomaster-top-p-populyarnie-serdechki-instagram-narisovann-1.jpg') repeat;
       opacity: 0.2;
       pointer-events: none;
     }
@@ -115,9 +115,8 @@
 </head>
 <body>
 
+  <div class="hearts-bg"></div>
 
- <div class="hearts-bg"></div>
-  
   <!-- Главный экран -->
   <div class="container" id="main">
     <h1>Кундуз, будешь моей валентинкой? 💖</h1>
@@ -130,8 +129,7 @@
   <!-- Финал -->
   <div class="final" id="final">
     <div class="envelope">💌</div>
-    <h1>Твой маленький гештальт💕💕💕
-    </h1>
+    <h1>Твой маленький гештальт 💖</h1>
   </div>
 
 <script>
@@ -167,7 +165,7 @@
 
   // Конфетти
   function spawnConfetti() {
-    for (let i = 0; i < 25; i++) {
+    for (let i = 0; i < 25; i++) {     
       const conf = document.createElement('div');
       conf.className = 'confetti';
       conf.style.left = Math.random() * 100 + 'vw';
